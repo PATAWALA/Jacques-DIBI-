@@ -5,6 +5,40 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Calendar } from "lucide-react";
 
+const Logo = () => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="shrink-0"
+  >
+    {/* Cercle extérieur doré */}
+    <circle
+      cx="20"
+      cy="20"
+      r="19"
+      stroke="#C5A880"
+      strokeWidth="1.5"
+      fill="none"
+    />
+    {/* Initiales JD */}
+    <text
+      x="20"
+      y="26"
+      textAnchor="middle"
+      fill="#C5A880"
+      fontFamily="serif"
+      fontSize="18"
+      fontWeight="bold"
+      letterSpacing="0.05em"
+    >
+      JD
+    </text>
+  </svg>
+);
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -43,14 +77,17 @@ const Navbar = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo aligné à gauche */}
-          <Link href="/" className="flex flex-col">
-            <span className="text-sm font-black uppercase tracking-[0.3em] text-white">
-              Jacques DIBI
-            </span>
-            <span className="text-[9px] font-medium tracking-[0.4em] uppercase text-[#C5A880] mt-0.5">
-              Cabinet & Conseil
-            </span>
+          {/* Logo SVG + Nom */}
+          <Link href="/" className="flex items-center gap-3">
+            <Logo />
+            <div className="flex flex-col">
+              <span className="text-sm font-black uppercase tracking-[0.3em] text-white">
+                Jacques DIBI
+              </span>
+              <span className="text-[9px] font-medium tracking-[0.4em] uppercase text-[#C5A880] mt-0.5">
+                Cabinet & Conseil
+              </span>
+            </div>
           </Link>
 
           {/* Liens + CTA (desktop) */}

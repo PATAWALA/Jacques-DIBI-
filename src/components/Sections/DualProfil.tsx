@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { BookOpen, Mic, Star } from "lucide-react";
 
 const poles = [
@@ -46,6 +49,13 @@ const poles = [
 ];
 
 export default function DualProfil() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="expertises" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#05070F] relative overflow-hidden">
       {/* Lueur d'ambiance subtile */}
@@ -53,7 +63,11 @@ export default function DualProfil() {
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* En-tête */}
-        <div className="text-center mb-16">
+        <div
+          className={`text-center mb-16 transition-all duration-800 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <span className="text-xs uppercase tracking-[0.4em] text-[#C5A880]/60">
             Expertises & Interventions
           </span>
@@ -67,7 +81,16 @@ export default function DualProfil() {
           {poles.map((pole, idx) => (
             <div
               key={idx}
-              className="group relative bg-[#0A0D1A] border border-white/5 hover:border-white/10 transition-all duration-700 flex flex-col shadow-[0_4px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_8px_60px_rgba(0,0,0,0.8)]"
+              className={`group relative bg-[#0A0D1A] border border-white/5 hover:border-white/10 transition-all duration-700 flex flex-col shadow-[0_4px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_8px_60px_rgba(0,0,0,0.8)] ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-12"
+              }`}
+              style={{
+                transitionDelay: `${idx * 200}ms`,
+                transitionDuration: "800ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
             >
               {/* Ligne supérieure colorée */}
               <div
