@@ -4,24 +4,16 @@
    THÈME DARK PREMIUM – Jacques DIBI
    ============================================= */
 @theme {
-  /* Couleurs fondamentales */
   --color-night: #05070F;
   --color-abyss: #000000;
   --color-silver: #E2E8F0;
   --color-gold-matte: #C5A880;
-
-  /* Lueurs d'ambiance (très faible opacité) */
   --color-cyan-glow: rgba(6, 182, 212, 0.06);
   --color-gold-glow: rgba(197, 168, 128, 0.05);
-
-  /* Polices */
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;
 }
 
-/* =============================================
-   UTILITAIRES DE LUMIÈRES (GLOWS)
-   ============================================= */
 @utility glow-cyan {
   box-shadow: 0 0 180px 60px var(--color-cyan-glow);
 }
@@ -36,9 +28,6 @@
     0 0 180px 60px var(--color-gold-glow);
 }
 
-/* =============================================
-   STYLES GLOBAUX
-   ============================================= */
 html {
   scroll-behavior: smooth;
   background-color: var(--color-night);
@@ -51,7 +40,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar discrète */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -65,19 +53,13 @@ body {
   border-radius: 3px;
 }
 
-/* Sélection */
 ::selection {
   background: rgba(197, 168, 128, 0.25);
   color: #ffffff;
 }
 
-/* Liens */
+/* Liens : héritent de la couleur par défaut, pas de survol global */
 a {
   color: inherit;
   text-decoration: none;
-}
-
-a:hover {
-  color: var(--color-gold-matte);
-  transition: color 0.3s ease;
 }

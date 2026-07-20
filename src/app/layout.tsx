@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import BottomStickyCTA from "@/components/BottomStickyCTA";
 
 const playfair = Playfair_Display({
@@ -54,7 +55,7 @@ export default function RootLayout({
 
         {/* Contenu principal */}
         <main className="relative z-0">{children}</main>
-
+        <Footer />
         {/* Bouton CTA mobile (géré par son composant) */}
         <BottomStickyCTA />
       </body>

@@ -1,70 +1,130 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, Calendar } from "lucide-react";
 
-const links = [
-  { href: "/", label: "Accueil" },
-  { href: "/#profil", label: "Profil" },
-  { href: "/#conferences", label: "Conférences" },
-  { href: "/boutique", label: "E-books" },
-];
-
-export default function Navbar() {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Accueil", href: "/" },
+    { name: "Conférences", href: "/conferences" },
+    { name: "Formations", href: "/formations" },
+    { name: "Boutique", href: "/boutique" },
+    { name: "AUPROHADA", href: "/engagements" },
+  ];
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-night/60 backdrop-blur-xl border-b border-white/5">
-      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
-        {/* Logo / Nom */}
-        <Link
-          href="/"
-          className="font-serif text-2xl tracking-wide text-white hover:text-gold-matte transition-colors"
-        >
-          Jacques DIBI
-        </Link>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-[#05070F]/90 backdrop-blur-xl border-b border-[#C5A880]/10 py-3 shadow-[0_1px_20px_rgba(0,0,0,0.5)]"
+          : "bg-[#05070F]/60 backdrop-blur-lg border-b border-transparent py-5"
+      }`}
+    >
+      {/* Ligne supérieure dorée – disparaît au scroll */}
+      <div
+        className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A880] to-transparent transition-opacity duration-500 ${
+          isScrolled ? "opacity-0" : "opacity-100"
+        }`}
+      />
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase text-silver/80">
-          {links.map((l) => (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo aligné à gauche */}
+          <Link href="/" className="flex flex-col">
+            <span className="text-sm font-black uppercase tracking-[0.3em] text-white">
+              Jacques DIBI
+            </span>
+            <span className="text-[9px] font-medium tracking-[0.4em] uppercase text-[#C5A880] mt-0.5">
+              Cabinet & Conseil
+            </span>
+          </Link>
+
+          {/* Liens + CTA (desktop) */}
+          <div className="hidden lg:flex items-center space-x-8">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-300 group ${
+                    isActive ? "text-[#C5A880]" : "text-gray-300 hover:text-[#C5A880]"
+                  }`}
+                >
+                  {link.name}
+                  <span
+                    className={`absolute left-0 -bottom-1 h-[1px] bg-[#C5A880] transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
+
+            {/* Séparateur */}
+            <div className="w-[1px] h-5 bg-[#C5A880]/30" />
+
+            {/* CTA inversé */}
             <Link
-              key={l.href}
-              href={l.href}
-              className="hover:text-gold-matte transition-colors duration-300"
+              href="/conferences"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#C5A880] text-black font-bold text-xs uppercase tracking-widest rounded-none transition-all duration-300 hover:bg-black hover:text-[#C5A880] border border-[#C5A880]"
             >
-              {l.label}
+              <Calendar size={14} />
+              Réserver ma place
             </Link>
-          ))}
-        </div>
+          </div>
 
-        {/* Mobile burger */}
-        <button
-          className="md:hidden text-silver hover:text-gold-matte transition"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Burger mobile */}
+          <div className="lg:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-300 hover:text-white focus:outline-none"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Menu mobile */}
       {isOpen && (
-        <div className="md:hidden bg-abyss/95 backdrop-blur-xl border-t border-white/5">
-          <div className="px-6 py-4 flex flex-col gap-4 text-sm uppercase tracking-wide text-silver/80">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setIsOpen(false)}
-                className="hover:text-gold-matte transition-colors"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
+        <div className="lg:hidden bg-[#05070F] border-t border-[#C5A880]/10 mt-3 py-4 px-4 space-y-3">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="block text-xs font-bold uppercase tracking-widest text-gray-300 py-2 hover:text-[#C5A880]"
+            >
+              {link.name}
+            </Link>
+          ))}
+          <Link
+            href="/conferences"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-[#C5A880] text-black font-bold text-xs uppercase tracking-widest rounded-none hover:bg-black hover:text-[#C5A880] border border-[#C5A880]"
+          >
+            <Calendar size={14} />
+            Réserver ma place
+          </Link>
         </div>
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;
