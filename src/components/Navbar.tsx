@@ -117,7 +117,7 @@ const Navbar = () => {
 
             {/* CTA inversé */}
             <Link
-              href="/conferences"
+              href="/conference"
               className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#C5A880] text-black font-bold text-xs uppercase tracking-widest rounded-none transition-all duration-300 hover:bg-black hover:text-[#C5A880] border border-[#C5A880]"
             >
               <Calendar size={14} />
@@ -151,7 +151,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            href="/conferences"
+            href="/conference"
             onClick={() => setIsOpen(false)}
             className="flex items-center justify-center gap-2 w-full py-3 bg-[#C5A880] text-black font-bold text-xs uppercase tracking-widest rounded-none hover:bg-black hover:text-[#C5A880] border border-[#C5A880]"
           >

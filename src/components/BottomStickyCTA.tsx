@@ -2,12 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { Calendar } from 'lucide-react';
 
 export default function BottomStickyCTA() {
   const [visible, setVisible] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -15,9 +13,6 @@ export default function BottomStickyCTA() {
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  // Ne pas afficher si déjà sur la page /conference
-  if (pathname === '/conference') return null;
 
   if (!visible) return null;
 
@@ -30,11 +25,11 @@ export default function BottomStickyCTA() {
           </p>
         </div>
         <Link
-          href="/conference#inscription"
-          className="inline-flex items-center gap-1.5 bg-gold-cta text-black font-semibold text-sm px-4 py-2.5 rounded-lg hover:bg-yellow-500 transition-colors shadow-sm whitespace-nowrap"
+            href="/conference#inscription"
+            className="inline-flex items-center gap-1.5 bg-[#C5A880] text-black font-semibold text-sm px-4 py-2.5 rounded-lg hover:bg-[#D4B896] transition-colors shadow-sm whitespace-nowrap"
         >
-          <Calendar className="w-4 h-4" />
-          Je m'inscris
+            <Calendar className="w-4 h-4" />
+            Je m'inscris
         </Link>
       </div>
     </div>
