@@ -2,23 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { X, Calendar } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Calendar } from 'lucide-react';
 
 export default function BottomStickyCTA() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => {
-      // Apparaît après 400px de scroll
-      setVisible(window.scrollY > 400);
-    };
+    const onScroll = () => setVisible(window.scrollY > 400);
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // vérification immédiate
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Si déjà sur la page de l'événement, on ne l'affiche pas (optionnel)
-  if (typeof window !== 'undefined' && window.location.pathname === '/evenements') return null;
+  // Ne pas afficher si déjà sur la page de la conférence
+  if (pathname === '/conference') return null;
 
   if (!visible) return null;
 
@@ -31,7 +30,7 @@ export default function BottomStickyCTA() {
           </p>
         </div>
         <Link
-          href="/evenements"
+          href="/conference"
           className="inline-flex items-center gap-1.5 bg-gold-cta text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-yellow-600 transition-colors whitespace-nowrap"
         >
           <Calendar className="w-4 h-4" />
