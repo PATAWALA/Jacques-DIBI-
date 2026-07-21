@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowRight, Users, Video } from "lucide-react";
+import ConferenceForm from "@/components/ConferenceForm";
 
 export const metadata: Metadata = {
   title: "Conférences & Masterclass | DCMP Network",
@@ -157,27 +158,7 @@ export default function ConferencesPage() {
             <p className="text-gray-400 mb-8">
               Inscrivez-vous gratuitement à cette conférence en ligne pour anticiper les évolutions juridiques liées au numérique.
             </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                // Simulation – à connecter à votre API
-                alert("Merci ! Vous êtes inscrit à la conférence. Vous recevrez le lien de connexion par email.");
-              }}
-              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-            >
-              <input
-                type="email"
-                placeholder="Votre adresse email"
-                required
-                className="flex-1 px-4 py-3 bg-transparent border border-[#C5A880]/30 text-white placeholder-gray-500 focus:outline-none focus:border-[#C5A880]"
-              />
-              <button
-                type="submit"
-                className="bg-[#C5A880] text-black px-6 py-3 font-bold uppercase tracking-[0.15em] text-xs hover:bg-[#D4B896] transition-all border border-[#C5A880]"
-              >
-                Je m'inscris
-              </button>
-            </form>
+            <ConferenceForm />
           </div>
         </div>
 
