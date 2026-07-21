@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Calendar, Clock, MapPin, ArrowRight, Users, Video } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Conférences & Masterclass | Jacques DIBI",
+  title: "Conférences & Masterclass | DCMP Network",
   description:
-    "Assistez aux conférences de Jacques DIBI sur le droit des affaires OHADA, le leadership et la prise de parole. Réservez votre place en présentiel ou en ligne.",
+    "Assistez aux conférences sur le droit des affaires, le numérique et le leadership. Réservez votre place gratuitement.",
 };
 
 const conferences = [
@@ -63,7 +63,7 @@ export default function ConferencesPage() {
           </p>
         </div>
 
-        {/* Grille */}
+        {/* Grille des conférences */}
         <div className="grid md:grid-cols-2 gap-8">
           {conferences.map((conf, i) => (
             <div
@@ -147,9 +147,42 @@ export default function ConferencesPage() {
           ))}
         </div>
 
+        {/* Inscription à la conférence gratuite en ligne */}
+        <div id="inscription" className="mt-20 bg-[#0A0D1A] border border-[#C5A880]/10 shadow-[0_4px_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
+          <div className="h-[2px] w-full bg-gradient-to-r from-[#C5A880] to-transparent" />
+          <div className="p-10 md:p-12 text-center max-w-2xl mx-auto">
+            <h3 className="font-serif text-2xl text-white mb-3">
+              Droit & numérique : les clés pour 2026
+            </h3>
+            <p className="text-gray-400 mb-8">
+              Inscrivez-vous gratuitement à cette conférence en ligne pour anticiper les évolutions juridiques liées au numérique.
+            </p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                // Simulation – à connecter à votre API
+                alert("Merci ! Vous êtes inscrit à la conférence. Vous recevrez le lien de connexion par email.");
+              }}
+              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                placeholder="Votre adresse email"
+                required
+                className="flex-1 px-4 py-3 bg-transparent border border-[#C5A880]/30 text-white placeholder-gray-500 focus:outline-none focus:border-[#C5A880]"
+              />
+              <button
+                type="submit"
+                className="bg-[#C5A880] text-black px-6 py-3 font-bold uppercase tracking-[0.15em] text-xs hover:bg-[#D4B896] transition-all border border-[#C5A880]"
+              >
+                Je m'inscris
+              </button>
+            </form>
+          </div>
+        </div>
+
         {/* Contact direct */}
         <div className="mt-20 bg-[#0A0D1A] border border-[#C5A880]/10 shadow-[0_4px_40px_rgba(0,0,0,0.6)] relative overflow-hidden">
-          {/* Ligne supérieure */}
           <div className="h-[2px] w-full bg-gradient-to-r from-[#C5A880] to-transparent" />
 
           <div className="p-10 md:p-12 text-center max-w-2xl mx-auto">
@@ -166,7 +199,7 @@ export default function ConferencesPage() {
             </p>
 
             <Link
-              href="mailto:contact@jacquesdibi.com"
+              href="mailto:contact@dcmp.network"
               className="inline-flex items-center gap-2 px-8 py-4 border border-[#C5A880]/30 text-[#C5A880] text-xs font-bold uppercase tracking-[0.15em] hover:bg-[#C5A880] hover:text-black hover:border-[#C5A880] transition-all duration-500"
             >
               Demander une intervention
