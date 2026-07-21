@@ -54,7 +54,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Accueil", href: "/" },
-    { name: "Conférences", href: "/conferences" },
+    { name: "Conférences", href: "/conference" },
     { name: "Formations", href: "/formations" },
     { name: "Boutique", href: "/boutique" },
     { name: "AUPROHADA", href: "/engagements" },
